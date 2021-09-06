@@ -102,7 +102,7 @@ class ConsumerBinding(Binding):
         Binding.__init__(self, channel, destination)
 
     def receive(self, callback):
-        self.channel.basic_consume(CallbackWrapper(callback).invoke,
+        self.channel.basic_consume(on_message_callback=CallbackWrapper(callback).invoke,
                                    queue=self.destination)
         self.channel.start_consuming()
 
